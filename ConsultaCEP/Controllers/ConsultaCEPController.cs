@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using ConsultaCEP.DAL;
 using ConsultaCEP.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -12,10 +13,10 @@ namespace ConsultaCEP.Controllers
 {
     public class ConsultaCEPController : Controller
     {
-        private readonly Context _context;
-        public ConsultaCEPController(Context context)
+        private readonly CepDAO _cepDAO;
+        public ConsultaCEPController(CepDAO cepDAO)
         {
-            _context = context;
+            _cepDAO = cepDAO;
         }
         public IActionResult Index()
         {
@@ -24,12 +25,11 @@ namespace ConsultaCEP.Controllers
                 string jsonCEP = TempData["ConsultaCEP"].ToString();
                 Cep cep = JsonConvert.DeserializeObject<Cep>(jsonCEP);
 
-                _context.Ceps.Add(cep);
-                _context.SaveChanges();
+                _cepDAO.Create(cep);
 
-                return View(_context.Ceps.ToList());
+                return View(_cepDAO.List());
             }
-            return View(_context.Ceps.ToList());
+            return View(_cepDAO.List());
         }
 
         [HttpPost]

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ConsultaCEP.DAL;
 using ConsultaCEP.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -25,6 +26,7 @@ namespace ConsultaCEP
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("Connection")));
+            services.AddScoped<CepDAO>();
             services.AddControllersWithViews();
         }
 
