@@ -1,0 +1,58 @@
+﻿@model List<Cep> 
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <title>Consultar CEP</title>
+</head>
+
+<body class="container" style="padding-top:30px">
+    <form asp-action="ConsultarCEP" asp-controller="ConsultaCEP">
+        <fieldset>
+            <legend>Consultar e Cadastrar CEP</legend>
+
+            <div class="container form-inline">
+                <input type="text" id="txtCep" class="form-control col-2"
+                           placeholder="Digite o CEP..." name="txtCep" />
+                <div class="pl-3"><input type="submit" value="Consultar e Cadastrar" class="btn btn-info" /></div>
+            </div>
+            <p></p>
+            <div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">CEP</th>
+                            <th scope="col">Logradouro</th>
+                            <th scope="col">Complemento</th>
+                            <th scope="col">Bairro</th>
+                            <th scope="col">Localidade</th>
+                            <th scope="col">UF</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (Cep cep in Model)
+                        {
+                            <tr>
+                                <td>@cep.cep</td>
+                                <td>@cep.logradouro</td>
+                                <td>@cep.complemento</td>
+                                <td>@cep.bairro</td>
+                                <td>@cep.localidade</td>
+                                <td>@cep.uf</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </fieldset>
+    </form>
+</body>
+
+</html>
